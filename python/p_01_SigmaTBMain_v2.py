@@ -16,10 +16,21 @@ import seaborn as Com_sns             # ****** ADDED for plotting ******
 from sqlalchemy import create_engine # Needed here for fun_connectToDb
 from datetime import datetime
 import traceback # For error details
+import  os                               # to access relative path
+import  sys
+
 
 # Import view modules containing display logic
 # These modules should NOT define their own connection functions/engines anymore
+
+
 try:
+
+    # Add the views directory to the Python path
+    views_path = os.path.join(os.path.dirname(__file__), "views")
+    if views_path not in sys.path:
+        sys.path.append(views_path)
+
     from views import p_02_ROP
     from views import p_03_Dashboard #as p_03_Dashboard
     from views import p_04_DashboardCosts
@@ -75,7 +86,10 @@ myCom_Streamlit.write(f"🟢 Execution started at: {datetime.now().strftime('%Y-
 # ────────────────────────────────────────────────────────────────────────────
 # 🎨 Sidebar Interface
 # ────────────────────────────────────────────────────────────────────────────
-myCom_Streamlit.sidebar.image("assets/SigmaTube-Bar.jpeg", use_container_width=True)
+# Get path relative to current file
+image_path = os.path.join(os.path.dirname(__file__), "assets", "SigmaTube-Bar.jpeg")
+myCom_Streamlit.sidebar.image(image_path, use_container_width=True)
+
 myVar_strMainSection = myCom_Streamlit.sidebar.selectbox(
     label="📁 Main Section", options=[ "📊 Dashboard", "📦 ROP Reports", "💰 Cost Analysis", "🗄️ Stored Procedures"]
 )
@@ -225,11 +239,11 @@ elif myVar_strMainSection == "📊 Dashboard":
 
 elif myVar_strMainSection == "🗄️ Stored Procedures":
     try:
-        # This function will handle the entire stored procedures UI
-        p_05_StoredProcedures.sub_displayStoredProceduresView(myVar_objAppDbEngine)
+        # This function will handle the entire SQL tools menu UI
+        p_05_StoredProcedures.sub_displayMenu(myVar_objAppDbEngine)
     except AttributeError as myVar_errAttr:
          myCom_Streamlit.error(f"🔴 Error calling function for 'Stored Procedures': {myVar_errAttr}")
-         myCom_Streamlit.error("Ensure 'sub_displayStoredProceduresView(engine)' exists in p_05_StoredProcedures.py.")
+         myCom_Streamlit.error("Ensure 'sub_displayMenu(engine)' exists in p_05_StoredProcedures.py.")
     except Exception as myVar_errGeneral:
          myCom_Streamlit.error(f"🔴 An unexpected error occurred in the Stored Procedures section: {myVar_errGeneral}")
          myCom_Streamlit.code(traceback.format_exc())

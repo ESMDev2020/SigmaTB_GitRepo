@@ -1,52 +1,94 @@
 {
-    "SQL Translation": [
-        {
-            "name": "Translate Query",
-            "description": "Translates SQL queries from legacy format to the new naming convention format",
-            "code": "-- This is a placeholder, the real execution happens in the function\nDECLARE @output NVARCHAR(MAX);\nDECLARE @SQLQuery NVARCHAR(MAX);\nDECLARE @DebugMode INT;\nDECLARE @Execution INT;\n\nEXEC [mrs].[usp_TranslateSQLQuery] \n    @SQLQuery = @SQLQuery,\n    @TranslatedQuery = @output OUTPUT, \n    @DebugMode = @DebugMode, \n    @Execution = @Execution;\n    \nSELECT @output AS TranslatedQuery;",
-            "parameters": {
-                "SQLQuery": "[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]",
-                "DebugMode": "0",
-                "Execution": "0"
-            }
-        },
-        {
-            "name": "TranslateSQLQuery",
-            "description": "Translates SQL queries from legacy format to the new naming convention format",
-            "code": "DECLARE @output NVARCHAR(MAX); \nDECLARE @SQLQuery NVARCHAR(MAX) = N'[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]';\nDECLARE @DebugMode INT = 0; \nDECLARE @Execution INT = 0;\n\nEXEC [mrs].[usp_TranslateSQLQuery] \n    @SQLQuery = @SQLQuery, \n    @TranslatedQuery = @output OUTPUT, \n    @DebugMode = @DebugMode, \n    @Execution = @Execution;\n    \nSELECT @output AS TranslatedQuery;",
-            "parameters": {
-                "SQLQuery": "[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]",
-                "DebugMode": "0",
-                "Execution": "0"
-            }
-        }
-    ],
-    "Column Search": [
-        {
-            "name": "FindColumnProperties",
-            "description": "Find column properties and search for specific values in columns",
-            "code": "EXEC [mrs].[sub_FindColumnPropertiesAndSearch] \n    @myVarVARCHARParamColumnCode = N'%ORD%', \n    @myVarBITDebugMode = 1,\n    @myVarVARCHARParamSearchValue = N'%968207%';",
-            "parameters": {
-                "myVarVARCHARParamColumnCode": "%ORD%",
-                "myVarBITDebugMode": "1",
-                "myVarVARCHARParamSearchValue": "%968207%"
-            }
-        }
-    ],
-    "Data Analysis": [
-        {
-            "name": "CustomerSummary",
-            "description": "Get a summary of customer data including sales information",
-            "code": "SELECT DISTINCT 'customer summary', \n       [mrs].[z_Customer_Master_File_____ARCUST].[CUSTOMER_DISTRICT_NUMBER_____CDIST] * 100000 + \n       [mrs].[z_Customer_Master_File_____ARCUST].[CUSTOMER_NUMBER_____CCUST] AS CustomerID, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Customer_Alpha_Name_____CALPHA] AS CustomerName, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Credit_Limit_____CLIMIT] AS CreditLimit, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Inside_Salesman_District_Number_____CISMD1] * 100 + \n       [mrs].[z_Customer_Master_File_____ARCUST].[Inside_Salesman_Number_____CISLM1] AS InsideSalesmanID, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Salesman_One_District_Number_____CSMDI1] * 100 + \n       [mrs].[z_Customer_Master_File_____ARCUST].[Salesman_One_Number_____CSLMN1] AS SalesmanID, \n       [mrs].[z_Salesman_Master_File_____SALESMAN].[Salesman_Name_____SMNAME] AS SalesmanName \nFROM [mrs].[z_Customer_Master_File_____ARCUST] [z_Customer_Master_File_____ARCUST], \n     [mrs].[z_Salesman_Master_File_____SALESMAN] [z_Salesman_Master_File_____SALESMAN] \nWHERE [z_Customer_Master_File_____ARCUST].[Inside_Salesman_District_Number_____CISMD1] = \n      [z_Salesman_Master_File_____SALESMAN].[Salesman_District_Number_____SMDIST] \nAND [z_Customer_Master_File_____ARCUST].[Inside_Salesman_Number_____CISLM1] = \n    [z_Salesman_Master_File_____SALESMAN].[Salesman_Number_____SMSMAN] \nORDER BY [z_Customer_Master_File_____ARCUST].[Customer_Alpha_Name_____CALPHA];",
-            "parameters": {}
-        }
-    ],
-    "Accounting": [
-        {
-            "name": "GLAccountQuery",
-            "description": "Query GL account data across multiple tables",
-            "code": "SELECT [GACDES] AS Description, [GARP3] AS ReportingProperty \nFROM [mrs].[GLACCT]; \n\nSELECT [GLACCT] AS Account, \n       [GLAPPL] AS Application, \n       [GLDESC] AS Description, \n       [GLPGM] AS Program, \n       [GLRECD] AS RecordDate, \n       [GLREF] AS Reference, \n       [GLRP#] AS ReportNumber, \n       [GLRPTY] AS ReportType, \n       [GLUSER] AS UserID \nFROM [mrs].[GLDEBCRED]; \n\nSELECT [GLACCT] AS Account, \n       [GLAMTQ] AS Amount, \n       [GLAPPL] AS Application, \n       [GLDESC] AS Description, \n       [GLPGM] AS Program, \n       [GLRECD] AS RecordDate, \n       [GLREF] AS Reference, \n       [GLRP#] AS ReportNumber, \n       [GLRPTY] AS ReportType, \n       [GLTRDS] AS TransactionDescription, \n       [GLTRN#] AS TransactionNumber, \n       [GLTRNT] AS TransactionType, \n       [GLTYPE] AS Type, \n       [GLUSER] AS UserID \nFROM [mrs].[GLTRANS];",
-            "parameters": {}
-        }
-    ]
+  "SQL Translation": [
+    {
+      "name": "Translate Query",
+      "description": "Translates SQL queries from legacy format to the new naming convention format",
+      "code": "-- This is a placeholder, the real execution happens in the function\nDECLARE @output NVARCHAR(MAX);\nDECLARE @SQLQuery NVARCHAR(MAX);\nDECLARE @DebugMode INT;\nDECLARE @Execution INT;\n\nEXEC [mrs].[usp_TranslateSQLQuery] \n    @SQLQuery = @SQLQuery,\n    @TranslatedQuery = @output OUTPUT, \n    @DebugMode = @DebugMode, \n    @Execution = @Execution;\n    \nSELECT @output AS TranslatedQuery;",
+      "parameters": {
+        "SQLQuery": "[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]",
+        "DebugMode": "0",
+        "Execution": "0"
+      }
+    },
+    {
+      "name": "TranslateSQLQuery",
+      "description": "Translates SQL queries from legacy format to the new naming convention format",
+      "code": "DECLARE @output NVARCHAR(MAX); \nDECLARE @SQLQuery NVARCHAR(MAX) = N'[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]';\nDECLARE @DebugMode INT = 0; \nDECLARE @Execution INT = 0;\n\nEXEC [mrs].[usp_TranslateSQLQuery] \n    @SQLQuery = @SQLQuery, \n    @TranslatedQuery = @output OUTPUT, \n    @DebugMode = @DebugMode, \n    @Execution = @Execution;\n    \nSELECT @output AS TranslatedQuery;",
+      "parameters": {
+        "SQLQuery": "[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]",
+        "DebugMode": "0",
+        "Execution": "0"
+      }
+    }
+  ],
+  "Column Search": [
+    {
+      "name": "FindColumnProperties",
+      "description": "Find column properties and search for specific values in columns",
+      "code": "EXEC [mrs].[sub_FindColumnPropertiesAndSearch] \n    @myVarVARCHARParamColumnCode = N'%ORD%', \n    @myVarBITDebugMode = 1,\n    @myVarVARCHARParamSearchValue = N'%968207%';",
+      "parameters": {
+        "myVarVARCHARParamColumnCode": "%ORD%",
+        "myVarBITDebugMode": "1",
+        "myVarVARCHARParamSearchValue": "%968207%"
+      }
+    }
+  ],
+  "Data Analysis": [
+    {
+      "name": "CustomerSummary",
+      "description": "Get a summary of customer data including sales information",
+      "code": "SELECT DISTINCT 'customer summary', \n       [mrs].[z_Customer_Master_File_____ARCUST].[CUSTOMER_DISTRICT_NUMBER_____CDIST] * 100000 + \n       [mrs].[z_Customer_Master_File_____ARCUST].[CUSTOMER_NUMBER_____CCUST] AS CustomerID, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Customer_Alpha_Name_____CALPHA] AS CustomerName, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Credit_Limit_____CLIMIT] AS CreditLimit, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Inside_Salesman_District_Number_____CISMD1] * 100 + \n       [mrs].[z_Customer_Master_File_____ARCUST].[Inside_Salesman_Number_____CISLM1] AS InsideSalesmanID, \n       [mrs].[z_Customer_Master_File_____ARCUST].[Salesman_One_District_Number_____CSMDI1] * 100 + \n       [mrs].[z_Customer_Master_File_____ARCUST].[Salesman_One_Number_____CSLMN1] AS SalesmanID, \n       [mrs].[z_Salesman_Master_File_____SALESMAN].[Salesman_Name_____SMNAME] AS SalesmanName \nFROM [mrs].[z_Customer_Master_File_____ARCUST] [z_Customer_Master_File_____ARCUST], \n     [mrs].[z_Salesman_Master_File_____SALESMAN] [z_Salesman_Master_File_____SALESMAN] \nWHERE [z_Customer_Master_File_____ARCUST].[Inside_Salesman_District_Number_____CISMD1] = \n      [z_Salesman_Master_File_____SALESMAN].[Salesman_District_Number_____SMDIST] \nAND [z_Customer_Master_File_____ARCUST].[Inside_Salesman_Number_____CISLM1] = \n    [z_Salesman_Master_File_____SALESMAN].[Salesman_Number_____SMSMAN] \nORDER BY [z_Customer_Master_File_____ARCUST].[Customer_Alpha_Name_____CALPHA];",
+      "parameters": {}
+    }
+  ],
+  "Accounting": [
+    {
+      "name": "GLAccountQuery",
+      "description": "Query GL account data across multiple tables",
+      "code": "SELECT [GACDES] AS Description, [GARP3] AS ReportingProperty \nFROM [mrs].[GLACCT]; \n\nSELECT [GLACCT] AS Account, \n       [GLAPPL] AS Application, \n       [GLDESC] AS Description, \n       [GLPGM] AS Program, \n       [GLRECD] AS RecordDate, \n       [GLREF] AS Reference, \n       [GLRP#] AS ReportNumber, \n       [GLRPTY] AS ReportType, \n       [GLUSER] AS UserID \nFROM [mrs].[GLDEBCRED]; \n\nSELECT [GLACCT] AS Account, \n       [GLAMTQ] AS Amount, \n       [GLAPPL] AS Application, \n       [GLDESC] AS Description, \n       [GLPGM] AS Program, \n       [GLRECD] AS RecordDate, \n       [GLREF] AS Reference, \n       [GLRP#] AS ReportNumber, \n       [GLRPTY] AS ReportType, \n       [GLTRDS] AS TransactionDescription, \n       [GLTRN#] AS TransactionNumber, \n       [GLTRNT] AS TransactionType, \n       [GLTYPE] AS Type, \n       [GLUSER] AS UserID \nFROM [mrs].[GLTRANS];",
+      "parameters": {}
+    }
+  ],
+  "DB Metadata": [
+    {
+      "name": "Column Metadata",
+      "description": "Returns detailed metadata for a specific column in a table including data type, length, precision, scale, and nullability.",
+      "code": "/***************************************************************************\nRETURNS THE TYPE OF DATA FOR THE SPECIFIED COLUMN\n-----------------------------------------------------------------------------*/\nSELECT \n    COLUMN_NAME,\n    DATA_TYPE,\n    CHARACTER_MAXIMUM_LENGTH,\n    NUMERIC_PRECISION,\n    NUMERIC_SCALE,\n    IS_NULLABLE\nFROM \n    INFORMATION_SCHEMA.COLUMNS\nWHERE \n    TABLE_NAME = '@TableName'  \n    AND COLUMN_NAME = '@ColumnName';",
+      "parameters": {
+        "TableName": "'mysql_____ap'",
+        "ColumnName": "'PO_______PO__'"
+      }
+    },
+    {
+      "name": "\ud83d\udd0d Column Metadata",
+      "description": "Returns detailed metadata for a specific column in a table including data type, length, precision, scale, and nullability.",
+      "code": "/***************************************************************************\nRETURNS THE TYPE OF DATA FOR THE SPECIFIED COLUMN\n-----------------------------------------------------------------------------*/\nSELECT \n    COLUMN_NAME,\n    DATA_TYPE,\n    CHARACTER_MAXIMUM_LENGTH,\n    NUMERIC_PRECISION,\n    NUMERIC_SCALE,\n    IS_NULLABLE\nFROM \n    INFORMATION_SCHEMA.COLUMNS\nWHERE \n    TABLE_NAME = '@TableName'  \n    AND COLUMN_NAME = '@ColumnName';",
+      "parameters": {
+        "TableName": "'mysql_____ap'",
+        "ColumnName": "'PO_______PO__'"
+      }
+    }
+  ],
+  "\u26a0\ufe0f Database Maintenance": [
+    {
+      "name": "\ud83d\udd34 Drop All Tables",
+      "description": "\u26a0\ufe0f DANGER! This procedure will DROP ALL TABLES listed in [mrs].[01_AS400_MSSQL_Equivalents]. This operation cannot be undone. You must enter today's date (YYYYMMDD format) to confirm this dangerous operation.",
+      "code": "/***************************************************************************************\nDROP TABLES FROM THE DATABASE FOR A CLEAN START\n----------------------------------------------------------------------------------------\nThis procedure generates and executes DROP TABLE statements for all tables listed in \n[mrs].[01_AS400_MSSQL_Equivalents]. This operation CANNOT BE UNDONE.\n\nSAFETY CHECK: Today's date must be entered in YYYYMMDD format to confirm this operation.\n****************************************************************************************/\n\n-- Safety check - only proceed if confirmation date matches today's date\nDECLARE @TodayDate VARCHAR(8) = CONVERT(VARCHAR(8), GETDATE(), 112); -- YYYYMMDD format\nDECLARE @sql NVARCHAR(MAX) = '';\n\nIF '@ConfirmationDate' <> @TodayDate\nBEGIN\n    -- If dates don't match, abort and show warning\n    SELECT \n        'OPERATION ABORTED - SAFETY CHECK FAILED' AS Status,\n        'The confirmation date does not match today''s date' AS Reason,\n        @TodayDate AS TodaysDate,\n        '@ConfirmationDate' AS EnteredDate;\n    RETURN;\nEND\n\n-- Generate the drop table statements\nSELECT @sql = @sql + 'DROP TABLE [mrs].[' + MSSQL_TableName + '];' + CHAR(13) + CHAR(10)\nFROM [mrs].[01_AS400_MSSQL_Equivalents]\nORDER BY MSSQL_TableName;\n\n-- Return the tables that will be dropped (for review before actual execution)\nIF '@ShowPreview' = '1'\nBEGIN\n    SELECT \n        MSSQL_TableName AS TableNameToBeDropped, \n        AS400_TableName AS OriginalAS400Table \n    FROM [mrs].[01_AS400_MSSQL_Equivalents]\n    ORDER BY MSSQL_TableName;\n    RETURN;\nEND\n\n-- Create a temporary table to track results\nCREATE TABLE #DropResults (\n    TableName NVARCHAR(255),\n    DropStatus NVARCHAR(20)\n);\n\n-- Begin a transaction\nBEGIN TRANSACTION;\n\nBEGIN TRY\n    -- Execute the drop statements\n    EXEC sp_executesql @sql;\n    \n    -- If successful, insert success records for all tables\n    INSERT INTO #DropResults\n    SELECT \n        MSSQL_TableName, \n        'Dropped Successfully' \n    FROM [mrs].[01_AS400_MSSQL_Equivalents]\n    ORDER BY MSSQL_TableName;\n    \n    -- Commit the transaction\n    COMMIT TRANSACTION;\n    \n    -- Return success message\n    SELECT \n        'ALL TABLES DROPPED SUCCESSFULLY' AS OperationStatus,\n        GETDATE() AS ExecutionTimestamp;\n        \n    -- Return details of dropped tables\n    SELECT * FROM #DropResults;\nEND TRY\nBEGIN CATCH\n    -- Roll back the transaction if there was an error\n    ROLLBACK TRANSACTION;\n    \n    -- Return error information\n    SELECT \n        'OPERATION FAILED' AS OperationStatus,\n        ERROR_NUMBER() AS ErrorNumber,\n        ERROR_MESSAGE() AS ErrorMessage;\nEND CATCH\n\n-- Clean up\nDROP TABLE IF EXISTS #DropResults;",
+      "parameters": {
+        "ConfirmationDate": "'YYYYMMDD'",
+        "ShowPreview": "'1'"
+      }
+    }
+  ],
+  "\ud83d\udd0d DB Metadata": [
+    {
+      "name": "\ud83d\udd0d Column Metadata",
+      "description": "Returns detailed metadata for a specific column in a table including data type, length, precision, scale, and nullability.",
+      "code": "/***************************************************************************\nRETURNS THE TYPE OF DATA FOR THE SPECIFIED COLUMN\n-----------------------------------------------------------------------------*/\nSELECT \n    COLUMN_NAME,\n    DATA_TYPE,\n    CHARACTER_MAXIMUM_LENGTH,\n    NUMERIC_PRECISION,\n    NUMERIC_SCALE,\n    IS_NULLABLE\nFROM \n    INFORMATION_SCHEMA.COLUMNS\nWHERE \n    TABLE_NAME = '@TableName'  \n    AND COLUMN_NAME = '@ColumnName';",
+      "parameters": {
+        "TableName": "'mysql_____ap'",
+        "ColumnName": "'PO_______PO__'"
+      }
+    }
+  ]
 }
