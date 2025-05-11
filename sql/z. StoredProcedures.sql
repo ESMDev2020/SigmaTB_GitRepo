@@ -258,19 +258,10 @@ select top(10) * from [mrs].[01_AS400_MSSQL_Equivalents]
 CLAUDE. FIND COLUMNS IN OTHER TABLES LIKE THE ONE WE ARE AUDITING
 ****************************************************/
 
-    -- Note: This assumes you use property names like 'FK_UserID', 'FK_OrderID' as your 'Column Codes'.
-    EXEC [mrs].[sub_FindColumnPropertiesByCode] @myVarVARCHARParamColumnCode = N'%ORDR%', @myVarBITDebugMode = 0;
-
-    -- Example 2: Find all extended properties for columns in schema 'mrs'
-    --            where the property name (Column Code) contains 'ORD' (Debug mode ON)
-    EXEC [mrs].[sub_FindColumnPropertiesByCode] @myVarVARCHARParamColumnCode = N'%ORD%', @myVarBITDebugMode = 1;
-
-    -- Example 3: Find properties where the name (Column Code) contains 'Description' (Case sensitivity depends on collation)
-    -- Note: This would find properties named 'MS_Description', 'ColumnDescription', etc.
-    EXEC [mrs].[sub_FindColumnPropertiesByCode] @myVarVARCHARParamColumnCode = N'%Description%', @myVarBITDebugMode = 1;
-
-    -- Example 4: Find the standard MS_Description property if it's used as a 'Column Code'
-    EXEC [mrs].[sub_FindColumnPropertiesByCode] @myVarVARCHARParamColumnCode = N'MS_Description', @myVarBITDebugMode = 0;
+	EXEC [mrs].[sub_FindColumnPropertiesAndSearch] 
+	    @myVarVARCHARParamColumnCode = N'%ORD%',
+	    @myVarVARCHARParamSearchValue = N'968207',
+	    @myVarBITDebugMode = 1;
 
 
 /**************************************************

@@ -3,9 +3,9 @@
         {
             "name": "Translate Query",
             "description": "Translates SQL queries from legacy format to the new naming convention format",
-            "code": "DECLARE @output NVARCHAR(MAX); \nDECLARE @SQLQuery NVARCHAR(MAX) = N'@SQLQuery';\nDECLARE @DebugMode INT = @DebugMode; \nDECLARE @Execution INT = @Execution;\n\nEXEC [mrs].[usp_TranslateSQLQuery] \n    @SQLQuery = @SQLQuery, \n    @TranslatedQuery = @output OUTPUT, \n    @DebugMode = @DebugMode, \n    @Execution = @Execution;\n    \nSELECT @output AS TranslatedQuery;",
+            "code": "-- This is a placeholder, the real execution happens in the function\nDECLARE @output NVARCHAR(MAX);\nDECLARE @SQLQuery NVARCHAR(MAX);\nDECLARE @DebugMode INT;\nDECLARE @Execution INT;\n\nEXEC [mrs].[usp_TranslateSQLQuery] \n    @SQLQuery = @SQLQuery,\n    @TranslatedQuery = @output OUTPUT, \n    @DebugMode = @DebugMode, \n    @Execution = @Execution;\n    \nSELECT @output AS TranslatedQuery;",
             "parameters": {
-                "SQLQuery": "[GACDES], [GARP3] FROM [mrs].[GLACCT]",
+                "SQLQuery": "[OEDETAIL],[OEOPNORD], [PODETAIL],[SPHEADER]",
                 "DebugMode": "0",
                 "Execution": "0"
             }

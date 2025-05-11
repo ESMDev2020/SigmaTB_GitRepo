@@ -327,23 +327,23 @@ Declare @DebugMode BIT;                       -- When 1, prints the SQL query be
 DECLARE @StartDate INT = 20250201;            -- Test period start date (February 1, 2025)
 DECLARE @EndDate INT = 20250228;              -- Test period end date (February 28, 2025)
 
--- EXEC [mrs].[mysp_QuerySelector] 'help'                                                 -- Lists all available query IDs that can be used with the stored procedure
--- EXEC [mrs].[mysp_QuerySelector] 'ROP_PRICE'                     , @Only10 = 1          -- Returns basic item numbers and their base prices
--- EXEC [mrs].[mysp_QuerySelector] 'ROP_MP'                        , @Only10 = 1          -- Returns orders with prefix 4 (401785), vendor info, items, quantities; ordered by item and transaction DESC
--- EXEC [mrs].[mysp_QuerySelector] 'ROP_PO'                        , @Only10 = 1          -- Returns orders with prefix 5 (518046), vendor details, items, quantities, dates; filtered by item range
--- EXEC [mrs].[mysp_QuerySelector] 'ROP_ROP'                       , @Only10 = 1          -- Returns item details and quantities for reorder point analysis; ordered by item description
--- EXEC [mrs].[mysp_QuerySelector] 'SALES_DATA'                    , @Only10 = 1          -- Returns orders with prefix 9 (970660), transaction details, item and customer info; ordered by item number
--- EXEC [mrs].[mysp_QuerySelector] 'SALES_DATA_orbytrans'          , @Only10 = 1          -- Same as SALES_DATA but ordered by transaction number DESC instead of item number
--- EXEC [mrs].[mysp_QuerySelector] 'SALES_ORDERS_orbytrans'        , @Only10 = 1, @DebugMode=0  -- Returns order, salesman, customer, invoice, item, pricing and cost info; ordered by transaction DESC
--- EXEC [mrs].[mysp_QuerySelector] 'SALES_ORDERS'                  , @Only10 = 1, @DebugMode=1  -- Order + Salesman + Type + Customer + Invoice + ITEM + Price + Freight + cost data; no shipping info
--- EXEC [mrs].[mysp_QuerySelector] 'TAG'                           , @Only10 = 1, @DebugMode=0  -- Returns item, tag, heat, mill, warehouse, quantity info; ordered by item, heat, mill, numeric length
--- EXEC [mrs].[mysp_QuerySelector] 'USAGE'                         , @Only10 = 1, @DebugMode=0  -- Returns item transaction history with type, vendor, customer, date; ordered by item and date
--- EXEC [mrs].[mysp_QuerySelector] 'USAGE_SUM'                     , @Only10 = 1, @DebugMode=1  -- Returns summary of usage by item and customer; ordered by item and customer name
--- EXEC [mrs].[mysp_QuerySelector] 'CM'                            , @Only10 = 1, @DebugMode=1  -- Returns credit memo details (Order_Type='C'); filtered by date range; ordered by transaction DESC
--- EXEC [mrs].[mysp_QuerySelector] 'CUST_SUM'                      , @Only10 = 1, @DebugMode=1  -- Returns customer info with salesman details; ordered by customer name
--- EXEC [mrs].[mysp_QuerySelector] 'CUST_SUM1'                     , @Only10 = 1, @DebugMode=1  -- Returns salesman summary information (ID and name)
--- EXEC [mrs].[mysp_QuerySelector] 'ITEMONHD'                      , @Only10 = 1, @DebugMode=0  -- Returns item numbers, quantities on hand/order, and average cost; ordered by item number
--- EXEC [mrs].[mysp_QuerySelector] 'SPO'                          , @Only10 = 1, @DebugMode=1  -- Returns service PO with hardcoded TransactionNumber=951239; filtered by district=1
+ EXEC [mrs].[mysp_QuerySelector] 'help'                                                 -- Lists all available query IDs that can be used with the stored procedure
+ EXEC [mrs].[mysp_QuerySelector] 'ROP_PRICE'                     , @Only10 = 1          -- Returns basic item numbers and their base prices
+ EXEC [mrs].[mysp_QuerySelector] 'ROP_MP'                        , @Only10 = 1          -- Returns orders with prefix 4 (401785), vendor info, items, quantities; ordered by item and transaction DESC
+ EXEC [mrs].[mysp_QuerySelector] 'ROP_PO'                        , @Only10 = 1          -- Returns orders with prefix 5 (518046), vendor details, items, quantities, dates; filtered by item range
+ EXEC [mrs].[mysp_QuerySelector] 'ROP_ROP'                       , @Only10 = 1          -- Returns item details and quantities for reorder point analysis; ordered by item description
+ EXEC [mrs].[mysp_QuerySelector] 'SALES_DATA'                    , @Only10 = 1          -- Returns orders with prefix 9 (970660), transaction details, item and customer info; ordered by item number
+ EXEC [mrs].[mysp_QuerySelector] 'SALES_DATA_orbytrans'          , @Only10 = 1          -- Same as SALES_DATA but ordered by transaction number DESC instead of item number
+ EXEC [mrs].[mysp_QuerySelector] 'SALES_ORDERS_orbytrans'        , @Only10 = 1, @DebugMode=0  -- Returns order, salesman, customer, invoice, item, pricing and cost info; ordered by transaction DESC
+ EXEC [mrs].[mysp_QuerySelector] 'SALES_ORDERS'                  , @Only10 = 1, @DebugMode=1  -- Order + Salesman + Type + Customer + Invoice + ITEM + Price + Freight + cost data; no shipping info
+ EXEC [mrs].[mysp_QuerySelector] 'TAG'                           , @Only10 = 1, @DebugMode=0  -- Returns item, tag, heat, mill, warehouse, quantity info; ordered by item, heat, mill, numeric length
+ EXEC [mrs].[mysp_QuerySelector] 'USAGE'                         , @Only10 = 1, @DebugMode=0  -- Returns item transaction history with type, vendor, customer, date; ordered by item and date
+ EXEC [mrs].[mysp_QuerySelector] 'USAGE_SUM'                     , @Only10 = 1, @DebugMode=1  -- Returns summary of usage by item and customer; ordered by item and customer name
+ EXEC [mrs].[mysp_QuerySelector] 'CM'                            , @Only10 = 1, @DebugMode=1  -- Returns credit memo details (Order_Type='C'); filtered by date range; ordered by transaction DESC
+ EXEC [mrs].[mysp_QuerySelector] 'CUST_SUM'                      , @Only10 = 1, @DebugMode=1  -- Returns customer info with salesman details; ordered by customer name
+ EXEC [mrs].[mysp_QuerySelector] 'CUST_SUM1'                     , @Only10 = 1, @DebugMode=1  -- Returns salesman summary information (ID and name)
+ EXEC [mrs].[mysp_QuerySelector] 'ITEMONHD'                      , @Only10 = 1, @DebugMode=0  -- Returns item numbers, quantities on hand/order, and average cost; ordered by item number
+ EXEC [mrs].[mysp_QuerySelector] 'SPO'                          , @Only10 = 1, @DebugMode=1  -- Returns service PO with hardcoded TransactionNumber=951239; filtered by district=1
 
 EXEC [mrs].[mysp_QuerySelector] 'SHIPMAST'		, @Only10 = 1, @DebugMode=0		-- Pending
 EXEC [mrs].[mysp_QuerySelector] 'GLTRANS'		, @Only10 = 1, @DebugMode=0		-- Pending
