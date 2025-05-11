@@ -1,28 +1,5 @@
-# Create a new .gitignore file with VS-specific exclusions
-cat > .gitignore << EOL
-# Visual Studio files
-.vs/
-*.vsidx
-*.suo
-*.user
-*.userosscache
-*.sln.docstates
-*.userprefs
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
 
-# Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
-
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-EOL
+/.vs
